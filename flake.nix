@@ -12,6 +12,5 @@
     {
       packages.x86_64-linux.default = package;
       formatter.x86_64-linux = pkgs.nixfmt-rfc-style;
-      devShells.x86_64-linux.default = pkgs.mkShell package.paths;
     };
 }
