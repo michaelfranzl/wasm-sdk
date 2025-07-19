@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     -DLIBCXXABI_USE_LLVM_UNWINDER:BOOL=OFF \
     -DUNIX:BOOL=ON \
     --debug-trycompile \
-    -DCMAKE_SYSROOT_COMPILE=${wasi-libc.dev} \
-    -DCMAKE_SYSROOT_LINK=${wasi-libc} \
+    -DCMAKE_SYSROOT_COMPILE=${wasi-libc.dev}/share/wasi-sysroot/ \
+    -DCMAKE_SYSROOT_LINK=${wasi-libc}/share/wasi-sysroot \
     -DCMAKE_CXX_FLAGS="-fno-exceptions" \
     -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
     ${src}/runtimes

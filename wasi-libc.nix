@@ -1,8 +1,16 @@
 { pkgs }:
+let
+  # https://github.com/WebAssembly/wasi-sdk/blob/wasi-sdk-26/cmake/wasi-sdk-sysroot.cmake#L29
+  sysroot_path = "share/wasi-sysroot";
+
+  # https://github.com/WebAssembly/wasi-sdk/blob/wasi-sdk-26/wasi-sdk.cmake#L10
+  triple = "wasm32-wasi";
+in
 with pkgs;
 stdenv.mkDerivation rec {
   name = "wasi-libc";
   version = "21";
+
   src = fetchFromGitHub {
     owner = "WebAssembly";
     repo = "wasi-libc";
@@ -25,8 +33,8 @@ stdenv.mkDerivation rec {
     "CC=${wasm-llvm}/bin/clang"
     "NM=${wasm-llvm}/bin/nm"
     "AR=${wasm-llvm}/bin/ar"
-    "SYSROOT_LIB=${builtins.placeholder "out"}/lib"
-    "SYSROOT_INC=${builtins.placeholder "dev"}/include"
-    "SYSROOT_SHARE=${builtins.placeholder "share"}/share"
+    "SYSROOT_LIB=${builtins.placeholder "out"}/${sysroot_path}/lib/${triple}"
+    "SYSROOT_INC=${builtins.placeholder "dev"}/${sysroot_path}/include/${triple}"
+    "SYSROOT_SHARE=${builtins.placeholder "share"}/${sysroot_path}/share/${triple}"
   ];
 }
