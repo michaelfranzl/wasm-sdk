@@ -14,6 +14,7 @@ pkgs.symlinkJoin {
     wasm-libcxx
     wasi-libc
     wasi-libc.dev
+    wasi-libc.share
     wasm-compiler-rt
   ];
 
